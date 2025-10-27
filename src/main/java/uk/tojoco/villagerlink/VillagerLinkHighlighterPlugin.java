@@ -56,9 +56,20 @@ public final class VillagerLinkHighlighterPlugin extends JavaPlugin {
                 sender.sendMessage("§aVillagerLinkHighlighter reloaded.");
                 return true;
             }
-            sender.sendMessage("§eUsage: /villagerlink reload");
+            if (args.length == 1 && args[0].equalsIgnoreCase("stick")) {
+                if (!(sender instanceof org.bukkit.entity.Player p)) {
+                    sender.sendMessage("§cPlayers only.");
+                    return true;
+                }
+                org.bukkit.inventory.ItemStack stick = DebugStickListener.makeStick();
+                p.getInventory().addItem(stick);
+                p.sendMessage("§aGave you a Villager Linker stick.");
+                return true;
+            }
+            sender.sendMessage("§eUsage: /villagerlink reload|stick");
             return true;
         });
+        
 
         // Repeating scanner
         new BukkitRunnable() {
