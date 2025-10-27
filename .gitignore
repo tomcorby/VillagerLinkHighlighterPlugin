@@ -1,0 +1,55 @@
+# --- Build outputs ---
+/build/
+/out/
+/bin/
+
+# --- Gradle cache ---
+/.gradle/
+
+# Keep the Gradle wrapper! (commit these)
+/gradle/wrapper/gradle-wrapper.properties
+!/gradlew
+!/gradlew.bat
+!/gradle/wrapper/gradle-wrapper.jar
+
+# --- IDE/project settings ---
+# JetBrains Fleet
+/.fleet/
+/.fleet-settings.json
+
+# IntelliJ IDEA
+/.idea/
+/*.iml
+*.iws
+
+# VS Code
+/.vscode/
+
+# Eclipse (just in case)
+/.project
+/.classpath
+/.settings/
+
+# --- OS cruft ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Logs & dumps ---
+*.log
+hs_err_pid*
+replay_pid*
+
+# --- Temporary files ---
+*.tmp
+*.swp
+*.swo
+*~
+
+# --- Misc ---
+# If you ever place a local test server under the project folder (not recommended),
+# uncomment these lines:
+# /server/
+# /paper/
+# /plugins/
+# /run/

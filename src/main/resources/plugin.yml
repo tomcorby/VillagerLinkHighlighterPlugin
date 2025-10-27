@@ -1,0 +1,15 @@
+name: VillagerLinkHighlighter
+main: uk.tojoco.villagerlink.VillagerLinkHighlighterPlugin
+version: 1.0.0
+api-version: '1.21'
+author: Tom
+description: Highlights villager bed/workstation link events with extended particles and sounds.
+commands:
+  villagerlink:
+    description: VillagerLinkHighlighter admin commands
+    usage: /villagerlink reload
+    permission: villagerlink.admin
+permissions:
+  villagerlink.admin:
+    description: Allows reloading the plugin
+    default: op

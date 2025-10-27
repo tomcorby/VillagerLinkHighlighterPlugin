@@ -1,0 +1,29 @@
+scan:
+  interval_ticks: 10          # how often to check villager memories
+  max_villagers_per_tick: 200 # safety cap per scan cycle (across all worlds)
+
+effects:
+  villager:
+    particle: HAPPY_VILLAGER
+    count: 30
+    extra: 0.1                # particle "speed"
+    duration_ticks: 60        # total time to keep sparkling
+    every_ticks: 5            # cadence of repeated sparkles
+    sound: ENTITY_VILLAGER_YES
+    sound_volume: 0.9
+    sound_pitch: 1.2
+
+  poi:
+    particle: ENCHANT         # sparkle on bed/workstation
+    count: 40
+    extra: 0.0
+    duration_ticks: 60
+    every_ticks: 5
+    sound: BLOCK_BEACON_ACTIVATE
+    sound_volume: 0.6
+    sound_pitch: 1.0
+
+cooldowns:
+  per_villager_ticks: 40      # avoid spam if memories flap
+
+debug: false
