@@ -39,6 +39,23 @@ public class DebugStickListener implements org.bukkit.event.Listener {
             Material.CAULDRON, Material.STONECUTTER, Material.LOOM
     );
 
+    // NEW: workstation -> profession mapping (used only when villager is NONE)
+    private static final Map<Material, Villager.Profession> WS_TO_PROF = Map.ofEntries(
+            Map.entry(Material.COMPOSTER,         Villager.Profession.FARMER),
+            Map.entry(Material.LECTERN,           Villager.Profession.LIBRARIAN),
+            Map.entry(Material.BLAST_FURNACE,     Villager.Profession.ARMORER),
+            Map.entry(Material.SMOKER,            Villager.Profession.BUTCHER),
+            Map.entry(Material.SMITHING_TABLE,    Villager.Profession.TOOLSMITH),
+            Map.entry(Material.GRINDSTONE,        Villager.Profession.WEAPONSMITH),
+            Map.entry(Material.CARTOGRAPHY_TABLE, Villager.Profession.CARTOGRAPHER),
+            Map.entry(Material.BREWING_STAND,     Villager.Profession.CLERIC),
+            Map.entry(Material.BARREL,            Villager.Profession.FISHERMAN),
+            Map.entry(Material.FLETCHING_TABLE,   Villager.Profession.FLETCHER),
+            Map.entry(Material.CAULDRON,          Villager.Profession.LEATHERWORKER),
+            Map.entry(Material.STONECUTTER,       Villager.Profession.MASON),
+            Map.entry(Material.LOOM,              Villager.Profession.SHEPHERD)
+    );
+
     public DebugStickListener(VillagerLinkHighlighterPlugin plugin) {
         this.plugin = plugin;
     }
@@ -158,6 +175,19 @@ public class DebugStickListener implements org.bukkit.event.Listener {
             Location wsLoc = b.getLocation().toCenterLocation();
             clearMemory(villager, MemoryKey.JOB_SITE);
             setMemory(villager, MemoryKey.JOB_SITE, wsLoc);
+
+            // NEW: if the villager is unemployed, set profession based on workstation
+            if (villager.getProfession() == Villager.Profession.NONE) {
+                Villager.Profession prof = WS_TO_PROF.get(mat);
+                if (prof != null) {
+                    villager.setProfession(prof);
+                    if (villager.getVillagerLevel() < 1) {
+                        villager.setVillagerLevel(1); // ensure novice level for new profession
+                    }
+                    p.sendActionBar("§aSet profession: §f" + prof.name());
+                }
+            }
+
             feedback(p, villager, wsLoc, "§dJOB_SITE linked");
         }
     }
