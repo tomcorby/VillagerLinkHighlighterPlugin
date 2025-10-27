@@ -61,7 +61,9 @@ public class DebugStickListener implements org.bukkit.event.Listener {
     private boolean isOurStick(ItemStack item) {
         if (item == null || item.getType() != Material.STICK) return false;
         ItemMeta meta = item.getItemMeta();
-        return meta != null && "§bVillager Linker".equals(meta.getDisplayName());
+        if (meta == null || !meta.hasDisplayName()) return false;
+        String name = org.bukkit.ChatColor.stripColor(meta.getDisplayName());
+        return name != null && name.equalsIgnoreCase("Villager Linker");
     }
 
     private boolean stickInEitherHand(Player p) {

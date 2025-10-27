@@ -10,6 +10,8 @@ import org.bukkit.entity.Villager;
 import org.bukkit.entity.memory.MemoryKey;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.plugin.PluginManager;
+import uk.tojoco.villagerlink.DebugStickListener;
 
 import java.util.*;
 
@@ -70,6 +72,8 @@ public final class VillagerLinkHighlighterPlugin extends JavaPlugin {
             return true;
         });
         
+        PluginManager pm = getServer().getPluginManager();
+        pm.registerEvents(new DebugStickListener(this), this);
 
         // Repeating scanner
         new BukkitRunnable() {
