@@ -152,24 +152,31 @@ public final class VillagerLinkHighlighterPlugin extends JavaPlugin {
 
                 boolean changed = false;
 
-                if (!Objects.equals(lastHome.get(id), home)) {
+                if (!lastHome.containsKey(id)) {
+                    // First time we see this villager: record baseline, don't trigger
+                    lastHome.put(id, home);
+                    if (debug) getLogger().info("Baseline HOME for " + id + ": " + home.map(Object::toString).orElse("empty"));
+                } else if (!Objects.equals(lastHome.get(id), home)) {
                     if (home.isPresent()) {
                         Location poiLoc = memoryToLocation(v, home.get());
                         triggerEffects(v, poiLoc, "HOME");
                         changed = true;
                     }
                     lastHome.put(id, home);
-                    if (debug) getLogger().info("Villager " + id + " HOME changed: " + home.map(Object::toString).orElse("empty"));
+                    if (debug) getLogger().info("HOME changed for " + id + " → " + home.map(Object::toString).orElse("empty"));
                 }
 
-                if (!Objects.equals(lastJob.get(id), job)) {
+                if (!lastJob.containsKey(id)) {
+                    lastJob.put(id, job);
+                    if (debug) getLogger().info("Baseline JOB for " + id + ": " + job.map(Object::toString).orElse("empty"));
+                } else if (!Objects.equals(lastJob.get(id), job)) {
                     if (job.isPresent()) {
                         Location poiLoc = memoryToLocation(v, job.get());
                         triggerEffects(v, poiLoc, "JOB");
                         changed = true;
                     }
                     lastJob.put(id, job);
-                    if (debug) getLogger().info("Villager " + id + " JOB_SITE changed: " + job.map(Object::toString).orElse("empty"));
+                    if (debug) getLogger().info("JOB_SITE changed for " + id + " → " + job.map(Object::toString).orElse("empty"));
                 }
 
                 if (changed) {
